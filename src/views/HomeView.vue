@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const items = ref([1,2,3])
+const items = ref([1,2,3,4,5,6,7,8,9,0])
 
 </script>
 
@@ -36,7 +36,16 @@ const items = ref([1,2,3])
             </div>
             <div class="chat">
                 <div class="messageContainer">
-
+                    <div class="u">
+                        <p class="shadow a">
+                            Meeepp mooppp
+                        </p>
+                    </div>
+                    <div class="notu">
+                        <p class="shadow a">
+                            mmmmmmmmmeppp Mop
+                        </p>
+                    </div>
                 </div>
                 <div class="messageInput">
                     <input type="text" class="shadow a" placeholder="Type something!">
@@ -78,6 +87,8 @@ const items = ref([1,2,3])
         width: calc(var(--differentContextGap) * 8)
         flex-wrap: nowrap
         flex-direction: column
+        overflow-y: scroll
+        height: 100vh
     .chatField
         width: calc(100% - (var(--differentContextGap) * 16))
         flex-wrap: wrap
@@ -87,7 +98,23 @@ const items = ref([1,2,3])
             height: calc(100% - (var(--sameContextGap) * 3))
             .messageContainer
                 height: calc(100% - (var(--sameContextGap) * 2) - 22px)
-                padding: 0 var(--sameContextGap)
+                padding: var(--sameContextGap)
+                > div
+                    p
+                        display: inline-block
+                        width: auto
+                        border-radius: calc(var(--sameContextGap) / 2)
+                        padding: calc(var(--containerPadding) / 2) calc(var(--containerPadding) * 0.9)
+                .u
+                    display: flex
+                    justify-content: flex-end
+                    p
+                        margin-left: var(--sameContextGap)
+                .notu
+                    p
+                        margin-right: var(--sameContextGap)
+                        background: var(--prim)
+                        color: var(--neutral)
             .messageInput
                 padding: 0 var(--sameContextGap)
                 input

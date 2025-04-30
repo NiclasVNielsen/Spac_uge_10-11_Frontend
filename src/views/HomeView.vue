@@ -164,6 +164,9 @@ const showRoomDetails = ref(true)
                     transform: translateY(-50%)
                     cursor: pointer
                     width: .7em
+                    transition: var(--quickTransition)
+                    &:hover
+                        fill: var(--prim)
 
     .chatDetails
         width: calc(var(--differentContextGap) * 8)

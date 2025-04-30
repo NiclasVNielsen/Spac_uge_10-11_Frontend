@@ -108,7 +108,7 @@ const showRoomDetails = ref(true)
     .chatField
         width: calc(100% - (var(--differentContextGap) * 16))
         flex-wrap: wrap
-        padding: var(--sameContextGap) 0
+        padding: 0 0 var(--sameContextGap) 0
         &.noSideBar
             width: calc(100% - (var(--differentContextGap) * 8))
         .controls

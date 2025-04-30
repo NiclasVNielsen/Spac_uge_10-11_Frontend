@@ -17,6 +17,7 @@ const showRoomDetails = ref(true)
                 <div v-for="item in items" :key="index" class="friendItem shadow b">
                     <figure>
                         <img src="../../public/ph.jpg" alt="">
+                        <figure class="status"></figure>
                     </figure>
                     <div>
                         <h6>
@@ -26,7 +27,6 @@ const showRoomDetails = ref(true)
                             <p>
                                 status message
                             </p>
-                            <figure class="status"></figure>
                         </div>
                     </div>
                 </div>
@@ -69,6 +69,7 @@ const showRoomDetails = ref(true)
                 <div v-for="item in items" :key="index" class="friendItem shadow b">
                     <figure>
                         <img src="../../public/ph.jpg" alt="">
+                        <figure class="status"></figure>
                     </figure>
                     <div>
                         <h6>
@@ -78,7 +79,6 @@ const showRoomDetails = ref(true)
                             <p>
                                 status message
                             </p>
-                            <figure class="status"></figure>
                         </div>
                     </div>
                 </div>
@@ -170,8 +170,20 @@ const showRoomDetails = ref(true)
             margin-right: var(--sameContextGap)
             display: flex
             align-items: center
+            position: relative
             img
                 border-radius: var(--borderRadius)
+                border-radius: 50%
+            .status
+                background: #0f0
+                width: var(--sameContextGap)
+                height: var(--sameContextGap)
+                border-radius: 50%
+                margin-bottom: 0
+                position: absolute
+                bottom: 0
+                right: 0
+                border: solid var(--borderSizeLight) var(--neutral)
         > div
             display: flex
             flex-direction: column
@@ -184,14 +196,5 @@ const showRoomDetails = ref(true)
                 flex-wrap: wrap
                 p
                     margin-bottom: 0
-                    width: calc(100% - (var(--sameContextGap) * 3))
-                .status
-                    background: #0f0
-                    width: var(--sameContextGap)
-                    height: var(--sameContextGap)
-                    border-radius: 50%
-                    margin-bottom: 0
-                    margin-left: var(--sameContextGap)
-                    margin-right: var(--sameContextGap)
 
 </style>

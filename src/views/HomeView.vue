@@ -80,6 +80,8 @@ const items = ref([1,2,3,4,5,6,7,8,9,0])
 
 <style lang="sass" scoped>
 
+
+
 .main
     min-height: 100vh
     display: flex
@@ -88,17 +90,28 @@ const items = ref([1,2,3,4,5,6,7,8,9,0])
         flex-wrap: nowrap
         flex-direction: column
         overflow-y: scroll
+        scrollbar-color: var(--darkNeutral) var(--neutral)
+        scrollbar-width: thin
         height: 100vh
+        &::-webkit-scrollbar-button
+            display: none
     .chatField
         width: calc(100% - (var(--differentContextGap) * 16))
         flex-wrap: wrap
+        padding: var(--sameContextGap) 0
         .controls
             height: calc(var(--sameContextGap) * 3)
+            margin: 0 var(--sameContextGap)
         .chat
             height: calc(100% - (var(--sameContextGap) * 3))
             .messageContainer
                 height: calc(100% - (var(--sameContextGap) * 2) - 22px)
-                padding: var(--sameContextGap)
+                padding: var(--sameContextGap) calc(var(--sameContextGap) * 2)
+                overflow-y: scroll
+                scrollbar-color: var(--darkNeutral) var(--neutral)
+                scrollbar-width: thin
+                &::-webkit-scrollbar-button
+                    display: none
                 > div
                     p
                         display: inline-block
@@ -117,8 +130,10 @@ const items = ref([1,2,3,4,5,6,7,8,9,0])
                         color: var(--neutral)
             .messageInput
                 padding: 0 var(--sameContextGap)
+                margin: 0 var(--sameContextGap)
                 input
                     margin-top: var(--sameContextGap)
+                    width: calc(100% - (var(--sameContextGap) * 2))
                     border: none
                     border-radius: var(--sameContextGap)
 

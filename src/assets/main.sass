@@ -1,0 +1,312 @@
+:root
+    --CTA: #20BF55
+    --prim: #01BAEF
+    --second: #0B4F6C
+    --neutral: #FBFBFF
+    --darkNeutral: #757575
+    --warning: #ef4801
+
+    --borderSize: 3px
+    --borderSizeLight: 2px
+    --borderRadius: 2px
+
+    --sameContextGap: 1rem
+    --differentContextGap: 2.5rem
+
+    --containerPadding: var(--sameContextGap)
+    --quickTransition: 75ms
+    
+    --cardSize: 300px
+    --listItemSize: 120px
+
+::selection
+  color: var(--neutral)
+  background: var(--prim)
+
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    font-family: Arial, Helvetica, sans-serif
+    font-size: 16px
+    font-weight: 400
+    color: var(--second)
+    scroll-behavior: smooth
+
+img
+    width: 100%
+    height: auto
+
+body
+    background: var(--neutral)
+
+.wrapper
+    margin: 0 auto
+    max-width: 1280px
+
+h1, h2
+    font-size: 2em
+
+h3, h4
+    font-size: 1.5em
+
+h5, h6
+    font-size: 1.2em
+
+h1,h2,h3,h4,h5,h6,p
+    margin-bottom: var(--sameContextGap)
+    width: 100%
+
+button
+    background: none
+    border: none
+
+label
+    user-select: none
+
+.inBoxLabel
+    padding: 3px calc(var(--sameContextGap))
+    transition: var(--quickTransition)
+    cursor: text
+
+input
+    padding: calc(var(--sameContextGap) / 2) calc(var(--sameContextGap))
+    border: var(--borderSizeLight) solid var(--prim)
+    background: var(--neutral)
+    display: block
+    width: 100%
+    transition: var(--quickTransition)
+    border-radius: var(--borderRadius)
+    font-size: 1.2em
+    font-weight: 400
+    outline: none !important
+    margin-bottom: var(--sameContextGap)
+    &:hover
+        border: var(--borderSizeLight) solid var(--prim)
+        + .inBoxLabel
+            border: var(--borderSizeLight) solid var(--prim)
+    &:invalid
+        border: var(--borderSizeLight) solid var(--second)
+        + .inBoxLabel
+            border: var(--borderSizeLight) solid var(--second)
+    &:focus
+        border: var(--borderSizeLight) solid var(--prim)
+        + .inBoxLabel
+            border: var(--borderSizeLight) solid var(--prim)
+    &:hover
+        border: var(--borderSizeLight) solid var(--prim)
+        + .inBoxLabel
+            border: var(--borderSizeLight) solid var(--prim)
+        /* border: var(--borderSize) solid #ef4801 */
+    + .inBoxLabel
+        border: var(--borderSizeLight) solid var(--prim)
+    &.subtle[type="text"], &.subtle[type="password"]
+        border: none
+        padding: 0
+        margin-bottom: 0
+        text-align: right
+        font-size: 1rem
+
+a, button
+    font-weight: bold
+    text-decoration: none
+    color: var(--prim)
+    transition: var(--quickTransition)
+    cursor: pointer
+    &:hover
+        color: var(--second)
+    &.CTA
+        color: var(--CTA)
+        &:hover
+            color: var(--second)
+
+@keyframes spin
+    0%
+        transform: rotate(0deg)
+    100%
+        transform: rotate(360deg)
+        
+
+.linkBox
+    padding: var(--containerPadding) calc(var(--containerPadding) * 1.8)
+    border: var(--borderSize) solid var(--prim)
+    background: var(--prim)
+    a, button
+       color: var(--neutral)
+       pointer-events: none
+    display: inline-block
+    transition: var(--quickTransition)
+    color: var(--neutral)
+    font-size: 1.2rem
+    text-align: center
+    cursor: pointer
+    border-radius: var(--borderRadius)
+    user-select: none
+    --spinColor: var(--prim)
+    &::after
+        position: absolute
+        top: calc(50% - 12px)
+        left: calc(50% - 12px)
+        content: ""
+        display: block
+        border-radius: 50%
+        width: calc(var(--sameContextGap) * 1.5)
+        height: calc(var(--sameContextGap) * 1.5)
+        background: radial-gradient(var(--neutral) calc(40% - 1px), transparent calc(40% + 1px)), linear-gradient(var(--spinColor) calc(50% - 1px), transparent calc(50% + 1px))
+        transition: calc(var(--quickTransition) * 5)
+        animation: spin 1s linear infinite
+        opacity: 0
+    &.spinner
+        background: var(--neutral)
+        &.warning, &.CTA
+            background: var(--neutral)
+        position: relative
+        a, button
+            opacity: 0
+        &::after
+            opacity: 1
+    &:hover    
+        color: var(--prim)
+        background: var(--neutral)
+        > a, > button
+            color: var(--prim)
+    &.CTA
+        border: var(--borderSize) solid var(--CTA)
+        background: var(--CTA)
+        --spinColor: var(--CTA)
+        &:hover    
+            background: var(--neutral)
+            > a, > button
+                color: var(--CTA)
+        > a, > button
+            color: var(--neutral)
+    &.warning
+        border: var(--borderSize) solid var(--warning)
+        background: var(--warning)
+        --spinColor: var(--warning)
+        &:hover    
+            background: var(--neutral)
+            > a, > button
+                color: var(--warning)
+        > a, > button
+            color: var(--neutral)
+
+.shadow.a
+    box-shadow: 0 0 25px -10px var(--darkNeutral)
+.shadow.l
+    box-shadow: -10px 0 10px -15px var(--darkNeutral)
+.shadow.t
+    box-shadow: 0px -10px 10px -15px var(--darkNeutral)
+.shadow.r
+    box-shadow: 10px 0 10px -15px var(--darkNeutral)
+.shadow.b
+    box-shadow: 0px 10px 10px -15px var(--darkNeutral)
+.shadow.h
+    transition: var(--quickTransition)
+    &:hover
+        box-shadow: 0 0 25px -10px var(--darkNeutral)
+
+.border
+    border-radius: var(--borderRadius)
+    border: var(--borderSize) solid transparent
+    &.light
+        border: var(--borderSizeLight) solid transparent
+
+.border.a
+    border: var(--borderSize) solid var(--second)
+    padding: calc(var(--sameContextGap) / 2) var(--sameContextGap)
+    &.light
+        border: var(--borderSizeLight) solid var(--second)
+
+.border.l
+    border-left: var(--borderSize) solid var(--second)
+    padding-left: var(--sameContextGap)
+    &.light
+        border-left: var(--borderSizeLight) solid var(--second)
+        
+.border.t
+    border-top: var(--borderSize) solid var(--second)
+    padding-top: calc(var(--sameContextGap) / 2)
+    &.light
+        border-top: var(--borderSizeLight) solid var(--second)
+
+.border.r
+    border-right: var(--borderSize) solid var(--second)
+    padding-right: var(--sameContextGap)
+    &.light
+        border-right: var(--borderSizeLight) solid var(--second)
+
+.border.b
+    border-bottom: var(--borderSize) solid var(--second)
+    padding-bottom: calc(var(--sameContextGap) / 2)
+    &.light
+        border-bottom: var(--borderSizeLight) solid var(--second)
+
+.border.h
+    transition: var(--quickTransition)
+    &:hover
+        border: var(--borderSize) solid var(--second)
+
+.containerPadding
+    padding: var(--containerPadding)
+    &.h
+        padding: 0 var(--containerPadding)
+    &.v
+        padding: var(--containerPadding) 0
+
+.flex
+    display: flex
+    flex-wrap: wrap
+    &.toEdge
+        div
+            &:first-of-type
+                padding-left: 0
+            &:last-of-type
+                padding-right: 0
+    &.center
+        justify-content: center
+        align-items: center
+
+article
+    padding: var(--containerPadding)
+    p
+        &.dc
+            margin-bottom: var(--differentContextGap)
+
+section, .container
+    padding: var(--containerPadding)
+    display: flex
+    flex-wrap: wrap
+
+div, p, form, article, section
+    width: 100%
+
+.col-1
+    width: 8.333%
+.col-2
+    width: 16.666%
+.col-3
+    width: 25%
+.col-4
+    width: 33.333%
+.col-5
+    width: 41.666%
+.col-6
+    width: 50%
+.col-7
+    width: 58.333%
+.col-8
+    width: 66.666%
+.col-9
+    width: 75%
+.col-10
+    width: 83.333%
+.col-11
+    width: 91.666%
+.col-12
+    width: 100%
+
+
+.col-1,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-10,.col-11,.col-12
+    padding-left: calc(var(--containerPadding))
+    padding-right: calc(var(--containerPadding))

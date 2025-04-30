@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 const items = ref([1,2,3,4,5,6,7,8,9,0])
+const items2 = ref([1,2,3])
 
 const showRoomDetails = ref(true)
 
@@ -67,7 +68,7 @@ const showRoomDetails = ref(true)
                 Room Name
             </h4>
             <div class="friendsContainer">
-                <div v-for="item in items" :key="index" class="friendItem shadow b">
+                <div v-for="item in items2" :key="index" class="friendItem shadow b">
                     <figure>
                         <img src="../../public/ph.jpg" alt="">
                         <figure class="status"></figure>
@@ -178,6 +179,7 @@ const showRoomDetails = ref(true)
     .friendItem
         display: flex
         padding: var(--sameContextGap) 0
+        cursor: pointer
         > figure
             width: calc(var(--differentContextGap) * 2)
             margin-right: var(--sameContextGap)

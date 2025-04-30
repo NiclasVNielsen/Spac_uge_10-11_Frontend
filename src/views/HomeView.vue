@@ -3,6 +3,8 @@ import { ref } from 'vue'
 
 const items = ref([1,2,3,4,5,6,7,8,9,0])
 
+const showRoomDetails = ref(true)
+
 </script>
 
 <template>
@@ -30,9 +32,16 @@ const items = ref([1,2,3,4,5,6,7,8,9,0])
                 </div>
             </div>
         </div>
-        <div class="chatField container">
+        <div class="chatField container" :class="{ 'noSideBar': !showRoomDetails }">
             <div class="controls shadow b container">
-                UI Controls
+                <div>
+
+                </div>
+                <div>
+                    <span @click="showRoomDetails = !showRoomDetails">
+                        Room Details
+                    </span>
+                </div>
             </div>
             <div class="chat">
                 <div class="messageContainer">
@@ -52,7 +61,7 @@ const items = ref([1,2,3,4,5,6,7,8,9,0])
                 </div>
             </div>
         </div>
-        <div class="chatDetails shadow l container">
+        <div class="chatDetails shadow l container" v-if="showRoomDetails">
             <h4>
                 Room Name
             </h4>
@@ -85,6 +94,7 @@ const items = ref([1,2,3,4,5,6,7,8,9,0])
 .main
     min-height: 100vh
     display: flex
+    overflow: hidden
     .friends, .chatDetails
         width: calc(var(--differentContextGap) * 8)
         flex-wrap: nowrap
@@ -99,9 +109,17 @@ const items = ref([1,2,3,4,5,6,7,8,9,0])
         width: calc(100% - (var(--differentContextGap) * 16))
         flex-wrap: wrap
         padding: var(--sameContextGap) 0
+        &.noSideBar
+            width: calc(100% - (var(--differentContextGap) * 8))
         .controls
             height: calc(var(--sameContextGap) * 3)
             margin: 0 var(--sameContextGap)
+            display: flex
+            justify-content: space-between
+            >div
+                display: flex
+                &:last-of-type
+                    justify-content: flex-end                    
         .chat
             height: calc(100% - (var(--sameContextGap) * 3))
             .messageContainer

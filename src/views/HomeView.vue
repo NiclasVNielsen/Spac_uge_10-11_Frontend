@@ -182,7 +182,6 @@ const showRoomDetails = ref(true)
             align-items: center
             position: relative
             img
-                border-radius: var(--borderRadius)
                 border-radius: 50%
             .status
                 background: #0f0

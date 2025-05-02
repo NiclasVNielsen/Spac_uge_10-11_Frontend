@@ -310,3 +310,44 @@ div, p, form, article, section
 .col-1,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-10,.col-11,.col-12
     padding-left: calc(var(--containerPadding))
     padding-right: calc(var(--containerPadding))
+
+
+
+//admin
+.admin
+    header
+        position: fixed
+        top: 0
+        left: 0
+        height: 100vh
+        z-index: 1000
+        width: calc(var(--differentContextGap) * 1.5)
+        background: var(--second)
+        padding: var(--sameContextGap) 0
+
+    .main
+        width: 100%
+        padding: 0
+
+    main
+        width: 100%
+
+    nav
+        display: flex
+        flex-direction: column
+
+    a
+        display: flex
+        justify-content: center
+        align-items: center
+        padding: var(--sameContextGap)
+        writing-mode: vertical-lr
+        transform: rotate(180deg)
+        &:hover
+            color: var(--neutral)
+
+    .router-link-active
+        color: var(--neutral)
+
+    .container.body
+        padding: 0

@@ -9,6 +9,9 @@ const items2 = ref([1,2,3])
 const showRoomDetails = ref(true)
 
 const sendMessage = (message) => {
+    if(userInput.value == "")
+        return
+    
     messages.value.push({
         sender: "me",
         message: message,

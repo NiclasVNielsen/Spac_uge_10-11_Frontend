@@ -1,12 +1,30 @@
 <script setup>
 import { ref } from 'vue'
 import { socket, messages } from '@/methods/sockets'
+import * as CRUD from '@/methods/httpRequests'
 
 
 const items = ref([1,2,3,4,5,6,7,8,9,0])
 const items2 = ref([1,2,3])
 
 const showRoomDetails = ref(true)
+
+// The id of the user currently logged in
+const userId = "test"
+
+const loadRoom = async (roomId = "cma6nlj5y0003v2do0u5o1noy") => {
+    const roomMessages = await CRUD.get("chatroom/getMessages/" + roomId)
+    roomMessages.map((msg) => {
+        if(msg.userId == userId)
+            msg["you"] = "u"
+        else
+            msg["you"] = "notu"
+    })
+    console.log(roomMessages)
+    messages.value = roomMessages
+}
+loadRoom()
+
 
 const sendMessage = (message) => {
     if(userInput.value == "")

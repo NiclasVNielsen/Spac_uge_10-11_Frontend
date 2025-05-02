@@ -1,10 +1,30 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { socket, messages } from '@/methods/sockets'
+
 
 const items = ref([1,2,3,4,5,6,7,8,9,0])
 const items2 = ref([1,2,3])
 
 const showRoomDetails = ref(true)
+
+const sendMessage = (message) => {
+    messages.value.push({
+        sender: "me",
+        message: message,
+        you: "u"
+    })
+
+    let data  = { 
+        room: 'room1',
+        message
+    }
+    socket.emit('chatToServer', data)
+
+    userInput.value = ""
+}
+
+const userInput = ref("")
 
 </script>
 
@@ -15,7 +35,7 @@ const showRoomDetails = ref(true)
                 Friends
             </h4>
             <div class="friendsContainer">
-                <div v-for="item in items" :key="index" class="friendItem shadow b">
+                <div v-for="item in items" :key="items" class="friendItem shadow b">
                     <figure>
                         <img src="../../public/ph.jpg" alt="">
                         <figure class="status"></figure>
@@ -46,20 +66,27 @@ const showRoomDetails = ref(true)
             </div>
             <div class="chat">
                 <div class="messageContainer">
-                    <div class="u">
-                        <p class="shadow a">
-                            Meeepp mooppp
-                        </p>
-                    </div>
-                    <div class="notu">
-                        <p class="shadow a">
-                            mmmmmmmmmeppp Mop
-                        </p>
-                    </div>
+                    <template v-for="(message, index) in messages" :key="messages">
+                        <template v-if="index != 0 && message.you == 'notu'">
+                            <p v-if="messages[index - 1].sender != message.sender">
+                                {{ message.sender }}
+                            </p>
+                        </template>
+                        <template v-else-if="message.you == 'notu'">
+                            <p>
+                                {{ message.sender }}
+                            </p>
+                        </template>
+                        <div :class="{notu: message.you == 'notu', u: message.you == 'u'}">
+                            <p class="shadow a">
+                                {{message.message}}
+                            </p>
+                        </div>
+                    </template>
                 </div>
                 <div class="messageInput">
-                    <input type="text" class="shadow a" placeholder="Type something!">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+                    <input type="text" class="shadow a" placeholder="Type something!" v-model="userInput" @keydown.enter="sendMessage(userInput)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" @click="sendMessage(userInput)"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
                 </div>
             </div>
         </div>
@@ -68,7 +95,7 @@ const showRoomDetails = ref(true)
                 Room Name
             </h4>
             <div class="friendsContainer">
-                <div v-for="item in items2" :key="index" class="friendItem shadow b">
+                <div v-for="item in items2" :key="items2" class="friendItem shadow b">
                     <figure>
                         <img src="../../public/ph.jpg" alt="">
                         <figure class="status"></figure>

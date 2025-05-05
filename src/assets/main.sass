@@ -72,8 +72,18 @@ label
         transition: var(--quickTransition)
         cursor: text
         border-bottom: none !important
+        border-radius: var(--borderRadius) var(--borderRadius) 0 0
     input
         border-top: none !important
+        border-radius: 0 0 var(--borderRadius) var(--borderRadius)
+        &.warning
+            border-color: var(--warning)
+            + label
+                border-color: var(--warning)
+        &.CTA
+            border-color: var(--CTA)
+            + label
+                border-color: var(--CTA)
 
 .inBoxLabel /* Legacy */
     padding: 3px calc(var(--sameContextGap))
@@ -94,19 +104,19 @@ input
     margin-bottom: var(--sameContextGap)
     &:hover
         border: var(--borderSizeLight) solid var(--prim)
-        + .inBoxLabel, + label
+        + .inBoxLabel, &[type=text] + label, &[type=email] + label, &[type=password] + label
             border: var(--borderSizeLight) solid var(--prim)
     &:invalid
-        border: var(--borderSizeLight) solid var(--second)
-        + .inBoxLabel, + label
-            border: var(--borderSizeLight) solid var(--second)
+        border: var(--borderSizeLight) solid var(--warning)
+        + .inBoxLabel, &[type=text] + label, &[type=email] + label, &[type=password] + label
+            border: var(--borderSizeLight) solid var(--warning)
     &:focus
         border: var(--borderSizeLight) solid var(--prim)
-        + .inBoxLabel, + label
+        + .inBoxLabel, &[type=text] + label, &[type=email] + label, &[type=password] + label
             border: var(--borderSizeLight) solid var(--prim)
     &:hover
         border: var(--borderSizeLight) solid var(--prim)
-        + .inBoxLabel, + label
+        + .inBoxLabel, &[type=text] + label, &[type=email] + label, &[type=password] + label
             border: var(--borderSizeLight) solid var(--prim)
         /* border: var(--borderSize) solid #ef4801 */
     + .inBoxLabel, &[type=text] + label, &[type=email] + label, &[type=password] + label

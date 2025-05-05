@@ -3,6 +3,22 @@
 import * as CRUD from '@/methods/httpRequests.js'
 import { ref } from "vue"
 
+const email = ref("")
+const password = ref("")
+
+const submit = (e) => {
+    let pass = true
+    if(email.value == ""){
+        document.querySelector("#email").classList.add("warning")
+        pass = false
+    }
+    if(password.value == "")
+        document.querySelector("#password").classList.add("warning")
+        pass = false
+
+    if(pass)
+        e.srcElement.classList.add('spinner')
+}
 
 </script>
 
@@ -13,14 +29,14 @@ import { ref } from "vue"
         </h2>
         <form class="shadow a">
             <div class="inputBox">
-                <input type="email" id="email">
+                <input type="email" id="email" v-model="email"> 
                 <label for="email">Email</label>
             </div>
             <div class="inputBox">
-                <input type="password" id="password">
+                <input type="password" id="password" v-model="password">
                 <label for="password">Password</label>
             </div>
-            <div class="linkBox" @click="function (e) { e.srcElement.classList.toggle('spinner') }">
+            <div class="linkBox" @click="function (e) { submit(e) }">
                 Click me! I do stuff 3:
             </div>
         </form>

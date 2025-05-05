@@ -2,7 +2,7 @@ import { io } from 'socket.io-client'
 import { ref } from 'vue';
 
 
-export const socket = io('http://localhost:3000');
+export const socket = io('http://192.168.20.160:3000');//http://localhost:3000
 
 export const messages = ref([])
 

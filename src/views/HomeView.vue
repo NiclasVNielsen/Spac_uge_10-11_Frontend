@@ -20,7 +20,6 @@ const loadRoom = async (roomId = "cma6nlj5y0003v2do0u5o1noy") => {
         else
             msg["you"] = "notu"
     })
-    console.log(roomMessages)
     messages.value = roomMessages
 }
 loadRoom()

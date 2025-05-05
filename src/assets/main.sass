@@ -71,19 +71,12 @@ label
         padding: 3px calc(var(--sameContextGap))
         transition: var(--quickTransition)
         cursor: text
+        border: var(--borderSizeLight) solid var(--prim)
         border-bottom: none !important
         border-radius: var(--borderRadius) var(--borderRadius) 0 0
     input
         border-top: none !important
         border-radius: 0 0 var(--borderRadius) var(--borderRadius)
-        &.warning
-            border-color: var(--warning)
-            + label
-                border-color: var(--warning)
-        &.CTA
-            border-color: var(--CTA)
-            + label
-                border-color: var(--CTA)
 
 .inBoxLabel /* Legacy */
     padding: 3px calc(var(--sameContextGap))
@@ -102,25 +95,32 @@ input
     font-weight: 400
     outline: none !important
     margin-bottom: var(--sameContextGap)
-    &:hover
-        border: var(--borderSizeLight) solid var(--prim)
-        + .inBoxLabel, &[type=text] + label, &[type=email] + label, &[type=password] + label
-            border: var(--borderSizeLight) solid var(--prim)
     &:invalid
-        border: var(--borderSizeLight) solid var(--warning)
+        border-color: var(--warning)
         + .inBoxLabel, &[type=text] + label, &[type=email] + label, &[type=password] + label
-            border: var(--borderSizeLight) solid var(--warning)
+            border-color: var(--warning)
     &:focus
-        border: var(--borderSizeLight) solid var(--prim)
+        border-color: var(--prim) !important
         + .inBoxLabel, &[type=text] + label, &[type=email] + label, &[type=password] + label
-            border: var(--borderSizeLight) solid var(--prim)
+            border-color: var(--prim)
     &:hover
-        border: var(--borderSizeLight) solid var(--prim)
+        border-color: var(--prim) !important
         + .inBoxLabel, &[type=text] + label, &[type=email] + label, &[type=password] + label
-            border: var(--borderSizeLight) solid var(--prim)
-        /* border: var(--borderSize) solid #ef4801 */
+            border-color: var(--prim)
+
     + .inBoxLabel, &[type=text] + label, &[type=email] + label, &[type=password] + label
-        border: var(--borderSizeLight) solid var(--prim)
+        border-color: var(--prim)
+
+    
+    &.warning
+        border-color: var(--warning)
+        + label
+            border-color: var(--warning)
+    &.CTA
+        border-color: var(--CTA)
+        + label
+            border-color: var(--CTA)
+
     &.subtle[type="text"], &.subtle[type="password"]
         border: none
         padding: 0

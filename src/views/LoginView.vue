@@ -7,14 +7,25 @@ const email = ref("")
 const password = ref("")
 
 const submit = (e) => {
+    userFeedback(e)
+}
+
+const userFeedback = (e) => {
+    const emailElement = document.querySelector("#email")
+    const passwordElement = document.querySelector("#password")
+
+    emailElement.classList.remove("warning")
+    passwordElement.classList.remove("warning")
+
     let pass = true
     if(email.value == ""){
-        document.querySelector("#email").classList.add("warning")
+        emailElement.classList.add("warning")
         pass = false
     }
-    if(password.value == "")
-        document.querySelector("#password").classList.add("warning")
+    if(password.value == ""){
+        passwordElement.classList.add("warning")
         pass = false
+    }
 
     if(pass)
         e.srcElement.classList.add('spinner')

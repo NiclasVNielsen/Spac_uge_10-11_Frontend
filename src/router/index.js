@@ -19,6 +19,11 @@ const router = createRouter({
       component: () => import('../views/AdminMessagesView.vue'),
     },
     {
+      path: '/admin/messages/:id',
+      name: 'admin_messages_edit',
+      component: () => import('../views/AdminEditMessagesView.vue'),
+    },
+    {
       path: '/admin/rooms',
       name: 'admin_rooms',
       component: () => import('../views/AdminRoomsView.vue'),

@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from "vue"
+import { useRouter } from "vue-router"
+
+const router = useRouter()
 
 const props = defineProps({
   data: Array
@@ -14,7 +17,7 @@ let i = 0
 for (const key in props.data[0]) {
     i++
     keys.value.push(key)
-    itemKeyDisplay.value.push(i < 4 ? true : false)
+    itemKeyDisplay.value.push(i < 5 && i > 1 ? true : false)
     searchWords.value.push("")
     checked.value.push(false)
 }
@@ -67,6 +70,10 @@ const toggleSearches = (forceMode = null) => {
 
 const toggleBurger = () => {
     document.querySelector('.mainContainer').classList.toggle('sideOn')
+}
+
+const redirect = (path) => {
+    router.push(path)
 }
 
 </script>
@@ -122,7 +129,7 @@ const toggleBurger = () => {
                     </div>
                 </template>
                 <div class="controls">
-                    <div class="linkBox" @click="function (e) { e.srcElement.classList.toggle('spinner') }">
+                    <div class="linkBox" @click="redirect('messages/' + item[keys[0]])">
                         Edit
                     </div>
                     <div class="linkBox warning" @click="function (e) { e.srcElement.classList.toggle('spinner') }">

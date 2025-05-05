@@ -3,23 +3,35 @@
 import * as CRUD from '@/methods/httpRequests.js'
 import { ref } from "vue"
 
-const email = ref("")
+const username = ref("")
 const password = ref("")
 
-const submit = (e) => {
-    userFeedback(e)
+const submit = () => {
+    const verified = userFeedback()
+
+    if(verified){
+        CRUD.post("auth/login", {
+            "username": username.value,
+            "password": password.value
+        })
+        .then(response => {
+            console.log(response)
+        })
+    }
 }
 
-const userFeedback = (e) => {
-    const emailElement = document.querySelector("#email")
+const userFeedback = () => {
+    const usernameElement = document.querySelector("#username")
     const passwordElement = document.querySelector("#password")
+    const enterElement = document.querySelector("#enter")
 
-    emailElement.classList.remove("warning")
+    usernameElement.classList.remove("warning")
     passwordElement.classList.remove("warning")
+    enterElement.classList.remove("spinner")
 
     let pass = true
-    if(email.value == ""){
-        emailElement.classList.add("warning")
+    if(username.value == ""){
+        usernameElement.classList.add("warning")
         pass = false
     }
     if(password.value == ""){
@@ -28,7 +40,9 @@ const userFeedback = (e) => {
     }
 
     if(pass)
-        e.srcElement.classList.add('spinner')
+        enterElement.classList.add('spinner')
+
+    return pass
 }
 
 </script>
@@ -40,15 +54,15 @@ const userFeedback = (e) => {
         </h2>
         <form class="shadow a">
             <div class="inputBox">
-                <input type="email" id="email" v-model="email"> 
-                <label for="email">Email</label>
+                <input type="text" id="username" v-model="username" @keydown.enter="submit()"> 
+                <label for="username">Name</label>
             </div>
             <div class="inputBox">
-                <input type="password" id="password" v-model="password">
+                <input type="password" id="password" v-model="password" @keydown.enter="submit()">
                 <label for="password">Password</label>
             </div>
-            <div class="linkBox" @click="function (e) { submit(e) }">
-                Click me! I do stuff 3:
+            <div class="linkBox" id="enter" @click="submit()">
+                Enter!
             </div>
         </form>
     </div>

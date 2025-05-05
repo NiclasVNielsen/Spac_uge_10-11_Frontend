@@ -178,6 +178,7 @@ a, button
         transition: calc(var(--quickTransition) * 5)
         animation: spin 1s linear infinite
         opacity: 0
+        transition: calc(var(--quickTransition) / 2)
     &.spinner
         background: var(--neutral)
         color: var(--neutral) !important
@@ -188,10 +189,10 @@ a, button
         &::after
             opacity: 1
     &:hover    
-        color: var(--prim)
+        color: var(--spinColor)
         background: var(--neutral)
         > a, > button
-            color: var(--prim)
+            color: var(--spinColor)
     &.CTA
         border: var(--borderSize) solid var(--CTA)
         background: var(--CTA)

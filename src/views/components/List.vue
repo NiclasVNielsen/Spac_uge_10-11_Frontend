@@ -80,12 +80,18 @@ const toggleBurger = () => {
     </figure>
     <div class="col-8 navPadding">
         <div class="container showCheckboxes shadow b">
+            <!--?
+                Toggle object keys off and on
+            -->
             <div v-for="(key, index) in keys" :key="keys">
                 <input type="checkbox" :id="key + 'show'" v-model="itemKeyDisplay[index]">
                 <label :for="key + 'show'">{{ key }}</label>
             </div>
         </div>
         <div class="container border b tableHeading">
+            <!--? 
+                Table Heading 
+            -->
             <div>
                 <input type="checkbox" id="selectAll">
                 <label for="selectAll" class="border a"></label>
@@ -95,8 +101,15 @@ const toggleBurger = () => {
                     {{ key }}
                 </p>
             </template>
+            <p>
+                Controls
+            </p>
         </div>
-        <ol @click="toggleSearches('off')">
+        <ol @click="toggleSearches('off')" class="mainList">
+
+            <!--? 
+                Main list
+            -->
 
             <li class="shadow b" v-for="(item, index) in filteredData" :key="index">
                 <div>
@@ -108,10 +121,21 @@ const toggleBurger = () => {
                         {{ item[key] }}
                     </div>
                 </template>
+                <div class="controls">
+                    <div class="linkBox" @click="function (e) { e.srcElement.classList.toggle('spinner') }">
+                        Edit
+                    </div>
+                    <div class="linkBox warning" @click="function (e) { e.srcElement.classList.toggle('spinner') }">
+                        Delete
+                    </div>
+                </div>
             </li>
 
         </ol>
         <div class="searchPanel">
+            <!--? 
+                Search
+            -->
             <div class="alignment">
                 <div class="linkBox" @click="toggleSearches()">
                     Search
@@ -130,6 +154,9 @@ const toggleBurger = () => {
         </div>
     </div>
     <div class="col-4 shadow l sideBar">
+        <!--? 
+            Sidebar list
+        -->
         <ol>
             <template v-for="(item, index) in filteredData" :key="index">
                 <li class="shadow b" v-if="checked[index]">
@@ -145,9 +172,16 @@ const toggleBurger = () => {
                         </template>
                     </div>
                 </li>
-            </template>
-
+            </template>    
         </ol>
+        <div class="controls">
+            <div class="linkBox" @click="function (e) { e.srcElement.classList.toggle('spinner') }">
+                Edit
+            </div>
+            <div class="linkBox warning" @click="function (e) { e.srcElement.classList.toggle('spinner') }">
+                Delete
+            </div>
+        </div>
     </div>
     
 </div>
@@ -197,6 +231,30 @@ ol
                 transition: var(--quickTransition)
             &:hover::after
                 opacity: 0.5
+
+.mainList
+    .controls
+        display: flex
+        .linkBox
+            padding: calc(var(--sameContextGap) / 2)
+            max-width: calc(var(--sameContextGap) * 10)
+            &:first-of-type
+                margin-right: var(--sameContextGap)
+.sideBar
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    flex-wrap: nowrap
+    ol
+        overflow-y: scroll
+        margin-top: var(--sameContextGap)
+        height: calc(100vh - (var(--sameContextGap) * 4) - 59px)
+    .controls
+        display: flex
+        padding: 0 var(--sameContextGap)
+        .linkBox
+            &:first-of-type
+                margin-right: var(--sameContextGap)
 
 .showCheckboxes
     display: flex
@@ -252,12 +310,12 @@ ol
     padding-left: 60px
 
 .col-4, .col-8
-    min-height: calc(100vh - (var(--sameContextGap) * 2))
     position: relative
     transition: var(--quickTransition)
 
 .col-8
     width: 100%
+    min-height: calc(100vh - (var(--sameContextGap) * 2))
 
 .col-4
     position: fixed
@@ -265,11 +323,13 @@ ol
     top: 0
     background: var(--neutral)
     transform: translateX(100%)
+    height: 100vh
+    padding: var(--sameContextGap) 0
 
 .sideOn
     .col-8
         width: 66.666%
-        .alignment
+        .searchPanel
             width: 66.666%
     .col-4
         transform: translateX(0)
@@ -280,6 +340,7 @@ ol
     bottom: 0
     left: 0
     padding: var(--sameContextGap)
+    transition: var(--quickTransition)
     .alignment
         position: relative
         width: 100%

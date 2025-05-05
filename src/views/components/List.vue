@@ -129,7 +129,7 @@ const toggleBurger = () => {
             </div>
         </div>
     </div>
-    <div class="col-4 shadow l">
+    <div class="col-4 shadow l sideBar">
         <ol>
             <template v-for="(item, index) in filteredData" :key="index">
                 <li class="shadow b" v-if="checked[index]">
@@ -137,11 +137,13 @@ const toggleBurger = () => {
                         <input type="checkbox" :id="index + 'item'" v-model="checked[index]">
                         <label :for="index + 'item'" class="border a"></label>
                     </div>
-                    <template v-for="(key, index) in keys" :key="index">
-                        <div v-if="itemKeyDisplay[index]">
-                            {{ item[key] }}
-                        </div>
-                    </template>
+                    <div class="dataContainer">
+                        <template v-for="(key, index) in keys" :key="index">
+                            <div v-if="itemKeyDisplay[index]">
+                                {{ item[key] }}
+                            </div>
+                        </template>
+                    </div>
                 </li>
             </template>
 
@@ -317,7 +319,15 @@ ol
                 input
                     border-top: 0
                     border-radius: 0 0 var(--borderRadius) var(--borderRadius)
-                    
+
+.sideBar
+    li
+        .dataContainer
+            div
+                margin-bottom: var(--sameContextGap)
+                &:last-of-type
+                    margin-bottom: 0
+
 
 .burger
     position: fixed

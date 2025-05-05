@@ -105,7 +105,7 @@ const toggleBurger = () => {
                 Controls
             </p>
         </div>
-        <ol @click="toggleSearches('off')" class="mainList">
+        <ol class="mainList">
 
             <!--? 
                 Main list
@@ -137,7 +137,7 @@ const toggleBurger = () => {
                 Search
             -->
             <div class="alignment">
-                <div class="linkBox" @click="toggleSearches()">
+                <div class="linkBox" @click="function(e) { toggleSearches(), e.srcElement.classList.toggle('on')}">
                     Search
                 </div>
                 <div class="searchFieldsContainer">

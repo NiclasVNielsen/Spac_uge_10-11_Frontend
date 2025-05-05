@@ -13,14 +13,14 @@ import { ref } from "vue"
         </h2>
         <form class="shadow a">
             <div class="inputBox">
-                <input type="email">
-                <label for="">Email</label>
+                <input type="email" id="email">
+                <label for="email">Email</label>
             </div>
             <div class="inputBox">
-                <input type="password">
-                <label for="">Password</label>
+                <input type="password" id="password">
+                <label for="password">Password</label>
             </div>
-            <div class="linkBox">
+            <div class="linkBox" @click="function (e) { e.srcElement.classList.toggle('spinner') }">
                 Click me! I do stuff 3:
             </div>
         </form>

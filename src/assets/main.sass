@@ -153,6 +153,7 @@ a, button
     cursor: pointer
     border-radius: var(--borderRadius)
     user-select: none
+    position: relative
     --spinColor: var(--prim)
     &::after
         position: absolute
@@ -169,9 +170,9 @@ a, button
         opacity: 0
     &.spinner
         background: var(--neutral)
+        color: var(--neutral) !important
         &.warning, &.CTA
             background: var(--neutral)
-        position: relative
         a, button
             opacity: 0
         &::after

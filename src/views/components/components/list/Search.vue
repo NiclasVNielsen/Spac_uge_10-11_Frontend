@@ -1,14 +1,17 @@
 <script setup>
 
+import { defineEmits } from 'vue'
+
+const emit = defineEmits(["filterData"])
+
 const props = defineProps({
     data: Array,
-    filteredData: Array,
     searchWords: Array,
     keys: Array
 })
 
 const search = () => {
-    props.filteredData.value = []
+    let filteredData = []
 
     props.data.filter(
         (item) => {
@@ -22,9 +25,11 @@ const search = () => {
             }
             
             if(passFilter)
-                props.filteredData.value.push(item)
+                filteredData.push(item)
         }
     )
+
+    emit('filterData', filteredData)
 }
 
 search()

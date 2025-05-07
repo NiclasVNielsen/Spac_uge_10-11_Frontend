@@ -26,31 +26,6 @@ for (const key in props.data[0]) {
 const filteredData = ref([])
 
 
-/* FIND WAY TO SEND THINGS BACK HERE FROM COMPONENTS */
-
-const search = () => { /* Should not be here! */
-    filteredData.value = []
-
-    props.data.filter(
-        (item) => {
-            let passFilter = true
-
-            let i = 0
-            for(const key in item){
-                if(!`${item[key]}`.toLowerCase().includes(searchWords.value[i].toLowerCase()))
-                    passFilter = false
-                i++
-            }
-            
-            if(passFilter)
-                filteredData.value.push(item)
-        }
-    )
-}
-
-search()
-
-
 const toggleBurger = () => {
     document.querySelector('.mainContainer').classList.toggle('sideOn')
 }
@@ -68,7 +43,7 @@ const toggleBurger = () => {
     <div class="col-8 navPadding">
         <controlsElement :keys="keys" :itemKeyDisplay="itemKeyDisplay" />
         <mainlistElement :keys="keys" :filteredData="filteredData" :checked="checked" :itemKeyDisplay="itemKeyDisplay" />
-        <searchElement :searchWords="searchWords" :keys="keys" :filteredData="filteredData" :data="props.data" :key="keys"/>
+        <searchElement @filterData="(newFd => {filteredData = newFd})" :searchWords="searchWords" :keys="keys" :data="props.data" :key="keys"/>
     </div>
     <sidebarElement :filteredData="filteredData" :keys="keys" :itemKeyDisplay="itemKeyDisplay" :checked="checked" :key="filteredData"/>
 </div>

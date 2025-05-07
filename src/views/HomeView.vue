@@ -57,7 +57,7 @@ const userInput = ref("")
             <div class="friendsContainer">
                 <div v-for="item in items" :key="items" class="friendItem shadow b">
                     <figure>
-                        <img src="../../public/ph.jpg" alt="">
+                        <img src="../../ph.jpg" alt="">
                         <figure class="status"></figure>
                     </figure>
                     <div>
@@ -117,7 +117,7 @@ const userInput = ref("")
             <div class="friendsContainer">
                 <div v-for="item in items2" :key="items2" class="friendItem shadow b">
                     <figure>
-                        <img src="../../public/ph.jpg" alt="">
+                        <img src="../../ph.jpg" alt="">
                         <figure class="status"></figure>
                     </figure>
                     <div>

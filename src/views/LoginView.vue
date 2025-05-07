@@ -86,7 +86,7 @@ const userFeedback = () => {
         <p class="textBox">
             <router-link to="/signup">Sign up</router-link>
         </p>
-        <p class="textBox warning" v-if="errorMessage != ''">
+        <p class="warning" :class="{on: errorMessage != ''}">
             {{ errorMessage }}
         </p>
     </div>
@@ -115,4 +115,17 @@ form, h2
 
 .warning
     color: var(--warning)
+    position: fixed
+    bottom: var(--sameContextGap)
+    left: var(--sameContextGap)
+    padding: var(--containerPadding) calc(var(--containerPadding) * 1.8)
+    display: inline-block
+    width: auto
+    border: solid var(--borderSize) var(--warning)
+    border-radius: var(--borderRadius)
+    margin: 0
+    transition: var(--quickTransition)
+    opacity: 0
+    &.on
+        opacity: 1
 </style>

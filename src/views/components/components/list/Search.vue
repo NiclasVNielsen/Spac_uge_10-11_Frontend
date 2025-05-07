@@ -5,6 +5,7 @@ import { defineEmits } from 'vue'
 const emit = defineEmits(["filterData"])
 
 const props = defineProps({
+    sideOn: Boolean,
     data: Array,
     searchWords: Array,
     keys: Array
@@ -58,7 +59,7 @@ const toggleSearches = (forceMode = null) => {
 </script>
 
 <template>
-    <div class="searchPanel">
+    <div class="searchPanel" :class="{sideOn: props.sideOn}">
         <div class="alignment">
             <div class="linkBox" @click="function(e) { toggleSearches(), e.srcElement.classList.toggle('on')}">
                 Search
@@ -87,6 +88,8 @@ const toggleSearches = (forceMode = null) => {
     left: 0
     padding: var(--sameContextGap)
     transition: var(--quickTransition)
+    &.sideOn
+        width: 66.666%
     .alignment
         position: relative
         width: 100%

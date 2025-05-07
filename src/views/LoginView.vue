@@ -3,6 +3,7 @@
 import * as CRUD from '@/methods/httpRequests.js'
 import { ref } from "vue"
 import { useRouter, RouterLink } from 'vue-router'
+import { id, username as un, role } from '@/data/token'
 
 const router = useRouter()
 
@@ -19,14 +20,20 @@ const submit = () => {
             "username": username.value,
             "password": password.value
         })
-        .then(response => {
-            if(response.access_token)
-                router.push("/")
-            else{
+        .then(async response => {
+            if(!response.access_token){
                 const enterElement = document.querySelector("#enter")
                 enterElement.classList.remove("spinner")
                 errorMessage.value = "Wrong Username or Password"
             }
+
+            const userData = await CRUD.get("user/" + username.value)
+
+            id.value = userData.id
+            un.value = userData.username
+            role.value = userData.role
+
+            router.push("/")
         })
     }
 }

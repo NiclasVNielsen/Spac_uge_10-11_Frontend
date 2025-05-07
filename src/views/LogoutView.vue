@@ -1,11 +1,14 @@
 <script setup>
 
-import { token } from '@/data/token';
+import { token, id, username, role } from '@/data/token';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
 
 token.value = ""
+id.value = ""
+username.value = ""
+role.value = ""
 
 setTimeout(() => {
     router.push("/")

@@ -26,26 +26,23 @@ for (const key in props.data[0]) {
 const filteredData = ref([])
 
 
-const toggleBurger = () => {
-    document.querySelector('.mainContainer').classList.toggle('sideOn')
-}
-
+const sideOn = ref(false)
 
 </script>
 
 <template>
 
     
-<div class="container mainContainer">
-    <figure @click="toggleBurger()" class="burger">
+<div class="container mainContainer" :class="{sideOn: sideOn}">
+    <figure @click="sideOn = !sideOn" class="burger">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/></svg>
     </figure>
     <div class="col-8 navPadding">
         <controlsElement :keys="keys" :itemKeyDisplay="itemKeyDisplay" />
         <mainlistElement :keys="keys" :filteredData="filteredData" :checked="checked" :itemKeyDisplay="itemKeyDisplay" />
-        <searchElement @filterData="(newFd => {filteredData = newFd})" :searchWords="searchWords" :keys="keys" :data="props.data" :key="keys"/>
+        <searchElement :sideOn="sideOn" @filterData="(newFd => {filteredData = newFd})" :searchWords="searchWords" :keys="keys" :data="props.data" :key="keys"/>
     </div>
-    <sidebarElement :filteredData="filteredData" :keys="keys" :itemKeyDisplay="itemKeyDisplay" :checked="checked" :key="filteredData"/>
+    <sidebarElement :filteredData="filteredData" :keys="keys" :itemKeyDisplay="itemKeyDisplay" :checked="checked" :key="filteredData" />
 </div>
 
 </template>

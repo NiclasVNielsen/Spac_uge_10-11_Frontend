@@ -1,10 +1,12 @@
 <script setup>
 
-import { useRouter } from "vue-router"
+import { useRouter, useRoute } from "vue-router"
+import { ref } from "vue"
 
 const router = useRouter()
+const route = useRoute()
 
-
+const itemName = ref(route.fullPath.split("/")[2])
 
 const props = defineProps({
     filteredData: Array,
@@ -35,7 +37,7 @@ const redirect = (path) => {
             </div>
         </template>
         <div class="controls">
-            <div class="linkBox" @click="redirect('messages/' + item[props.keys[0]])">
+            <div class="linkBox" @click="redirect(itemName + '/' + item[props.keys[0]])">
                 Edit
             </div>
             <div class="linkBox warning" @click="function (e) { e.srcElement.classList.toggle('spinner') }">

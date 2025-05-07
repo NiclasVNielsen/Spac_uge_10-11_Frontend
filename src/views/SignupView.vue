@@ -8,6 +8,7 @@ const router = useRouter()
 
 const username = ref("")
 const password = ref("")
+const password2 = ref("")
 
 const errorMessage = ref("")
 
@@ -15,7 +16,7 @@ const submit = () => {
     const verified = userFeedback()
 
     if(verified){
-        CRUD.post("auth/login", {
+        CRUD.update("auth/register", {
             "username": username.value,
             "password": password.value
         })
@@ -34,6 +35,7 @@ const submit = () => {
 const userFeedback = () => {
     const usernameElement = document.querySelector("#username")
     const passwordElement = document.querySelector("#password")
+    const password2Element = document.querySelector("#password2")
     const enterElement = document.querySelector("#enter")
 
     usernameElement.classList.remove("warning")
@@ -49,6 +51,16 @@ const userFeedback = () => {
         passwordElement.classList.add("warning")
         pass = false
     }
+    if(password2.value == ""){
+        password2Element.classList.add("warning")
+        pass = false
+    }
+    if(password.value != password2.value){
+        passwordElement.classList.add("warning")
+        password2Element.classList.add("warning")
+        pass = false
+        errorMessage.value = "Passwords doesn't match"
+    }
 
     if(pass)
         enterElement.classList.add('spinner')
@@ -61,7 +73,7 @@ const userFeedback = () => {
 <template>
     <div class="container">
         <h2>
-            Login
+            Sign up
         </h2>
         <form class="shadow a">
             <div class="inputBox">
@@ -72,12 +84,16 @@ const userFeedback = () => {
                 <input type="password" id="password" v-model="password" @keydown.enter="submit()">
                 <label for="password">Password</label>
             </div>
+            <div class="inputBox">
+                <input type="password" id="password2" v-model="password2" @keydown.enter="submit()">
+                <label for="password2">Repeat Password</label>
+            </div>
             <div class="linkBox" id="enter" @click="submit()">
                 Enter!
             </div>
         </form>
         <p class="textBox">
-            <router-link to="/signup">Sign up</router-link>
+            <router-link to="/login">Login</router-link>
         </p>
         <p class="textBox warning" v-if="errorMessage != ''">
             {{ errorMessage }}
@@ -108,4 +124,5 @@ form, h2
 
 .warning
     color: var(--warning)
+
 </style>

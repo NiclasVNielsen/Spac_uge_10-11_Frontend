@@ -4,6 +4,9 @@
     run api: dotnet run -p Lagersystem
 */
 
+import { token } from "@/data/token"
+
+
 const baseUrl = "http://localhost:3000/api/v1/"
 
 
@@ -14,14 +17,15 @@ export function get (urlEnding) {
             fetch(url,{
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.value}`
                 }
             })
             .then(response => {
                 response.json().then(data => {
                     if(response.error)
                         console.error("🔥", response.error)
-                    
+
                     res(data)
                 })
             })
@@ -37,16 +41,22 @@ export function update (urlEnding, body) {
         try {
             fetch(url, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                credentials: 'include',
+                headers: { 
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token.value}` 
+                },
                 body: JSON.stringify(body)
             })
             .then(response => {
-                
-                if(response.status > 199 && response.status < 300)
-                    console.log("^^")
-                else
-                    console.error("🔥")
+                if(response.error)
+                    console.error("🔥", response.error)
+
+                response.json().then(data => {
+                    if(data.access_token)
+                        token.value = data.access_token
+
+                    res(data)
+                })
             })
         } catch (error) {
             rej(error)
@@ -60,18 +70,22 @@ export function post (urlEnding, body) {
         try {
             fetch(url, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: 'include',
+                headers: { 
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token.value}`
+                },
                 body: JSON.stringify(body)
             })
             .then(response => {
-                
-                if(response.status > 199 && response.status < 300)
-                    console.log("^^")
-                else
-                    console.error("🔥")
+                if(response.error)
+                    console.error("🔥", response.error)
 
-                res(response.status)
+                response.json().then(data => {
+                    if(data.access_token)
+                        token.value = data.access_token
+
+                    res(data)
+                })
             })
         } catch (error) {
             rej(error)
@@ -85,17 +99,22 @@ export function remove (urlEnding, body) {
         try {
             fetch(url, {
                 method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-                credentials: 'include', 
+                headers: { 
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token.value}`
+                },
                 body: JSON.stringify(body)
             })
             .then(response => {
-                if(response.status > 199 && response.status < 300)
-                    console.log("^^")
-                else
-                    console.error("🔥")
+                if(response.error)
+                    console.error("🔥", response.error)
 
-                res(response.status)
+                response.json().then(data => {
+                    if(data.access_token)
+                        token.value = data.access_token
+
+                    res(data)
+                })
             })
         } catch (error) {
             rej(error)

@@ -36,7 +36,7 @@ const sendMessage = (message) => {
     })
 
     let data  = { 
-        roomId: 'room1',
+        roomId: 'cma6nlj5y0003v2do0u5o1noy',
         message
     }
     socket.emit('chatToServer', data)

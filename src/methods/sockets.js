@@ -25,6 +25,7 @@ socket.on('error', console.log)
 })*/
 
 socket.on('chatToClient', (data) => {
+    console.log(data)
     messages.value.push({
         roomId: "cma6nlj5y0003v2do0u5o1noy",
         sender: data.sender,

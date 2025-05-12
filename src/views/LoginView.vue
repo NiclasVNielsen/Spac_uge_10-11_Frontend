@@ -3,7 +3,7 @@
 import * as CRUD from '@/methods/httpRequests.js'
 import { ref } from "vue"
 import { useRouter, RouterLink } from 'vue-router'
-import { id, username as un, role } from '@/data/token'
+import { id, username as un, role, rooms } from '@/data/token'
 
 const router = useRouter()
 
@@ -32,8 +32,14 @@ const submit = () => {
             id.value = userData.id
             un.value = userData.username
             role.value = userData.role
+            rooms.value = userData.chatrooms
+            localStorage.setItem("userId", userData.id)
+            localStorage.setItem("username", userData.username)
+            localStorage.setItem("userRole", userData.role)
+            localStorage.setItem("rooms", JSON.stringify(userData.chatrooms))
 
-            router.push("/")
+            console.log(JSON.stringify(userData.chatrooms))
+            //router.push("/")
         })
     }
 }

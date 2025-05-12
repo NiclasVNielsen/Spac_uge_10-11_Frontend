@@ -7,7 +7,7 @@
 import { token } from "@/data/token"
 
 
-const baseUrl = "http://localhost:3000/api/v1/"
+const baseUrl = "http://192.168.20.222:3000/api/v1/"
 
 
 export function get (urlEnding) {

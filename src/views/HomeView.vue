@@ -2,27 +2,44 @@
 import { ref } from 'vue'
 import { socket, messages } from '@/methods/sockets'
 import * as CRUD from '@/methods/httpRequests'
+import { id, getLocalData, username, rooms } from '@/data/token'
 
+getLocalData()
 
-const items = ref([1,2,3,4,5,6,7,8,9,0])
-const items2 = ref([1,2,3])
+const items = ref([])
+
+items.value = JSON.parse(rooms.value)
 
 const showRoomDetails = ref(true)
 
-// The id of the user currently logged in
-const userId = "test"
-
 const loadRoom = async (roomId = "cma6nlj5y0003v2do0u5o1noy") => {
     const roomMessages = await CRUD.get("chatroom/getMessages/" + roomId)
+
+    
     roomMessages.map((msg) => {
-        if(msg.userId == userId)
+        if(msg.userId == id.value)
             msg["you"] = "u"
         else
             msg["you"] = "notu"
     })
     messages.value = roomMessages
 }
-loadRoom()
+
+const usersIdArray = ref([])
+const usersnameArray = ref([])
+
+const getUsers = async (roomId = "cma6nlj5y0003v2do0u5o1noy") => {
+    const users = await CRUD.get("chatroom/getusers/" + roomId)
+
+    console.log(users)
+
+    users.forEach(user => {
+        usersIdArray.value.push(user.id)
+        usersnameArray.value.push(user.username)
+    });
+
+}
+getUsers()
 
 
 const sendMessage = (message) => {
@@ -52,23 +69,17 @@ const userInput = ref("")
     <div class="main">
         <div class="friends shadow r container">
             <h4>
-                Friends
+                Rooms
             </h4>
             <div class="friendsContainer">
-                <div v-for="item in items" :key="items" class="friendItem shadow b">
+                <div v-for="item in items" :key="items" class="friendItem shadow b" @click="loadRoom(item.id)">
                     <figure>
                         <img src="../../ph.jpg" alt="">
-                        <figure class="status"></figure>
                     </figure>
                     <div>
-                        <h6>
-                            name
+                        <h6 style="margin-bottom: 0;">
+                            {{ item.name }}
                         </h6>
-                        <div>
-                            <p>
-                                status message
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -88,8 +99,8 @@ const userInput = ref("")
                 <div class="messageContainer">
                     <template v-for="(message, index) in messages" :key="messages">
                         <template v-if="index != 0 && message.you == 'notu'">
-                            <p v-if="messages[index - 1].sender != message.sender">
-                                {{ message.sender }}
+                            <p v-if="messages[index - 1].userId != message.userId">
+                                {{ usersnameArray[usersIdArray.indexOf(message.userId)] }}
                             </p>
                         </template>
                         <template v-else-if="message.you == 'notu'">
@@ -115,14 +126,14 @@ const userInput = ref("")
                 Room Name
             </h4>
             <div class="friendsContainer">
-                <div v-for="item in items2" :key="items2" class="friendItem shadow b">
+                <div v-for="item in usersnameArray" :key="usersnameArray" class="friendItem shadow b">
                     <figure>
                         <img src="../../ph.jpg" alt="">
                         <figure class="status"></figure>
                     </figure>
                     <div>
                         <h6>
-                            name
+                            {{item}}
                         </h6>
                         <div>
                             <p>

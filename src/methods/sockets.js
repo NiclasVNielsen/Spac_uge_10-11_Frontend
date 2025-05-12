@@ -2,7 +2,7 @@ import { io } from 'socket.io-client'
 import { ref } from 'vue';
 
 
-export const socket = io('http://localhost:3000', {
+export const socket = io('http://192.168.20.222:3000', {
     auth: {
         token: localStorage.getItem('token')
     },

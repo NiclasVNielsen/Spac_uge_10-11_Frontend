@@ -38,8 +38,7 @@ const submit = () => {
             localStorage.setItem("userRole", userData.role)
             localStorage.setItem("rooms", JSON.stringify(userData.chatrooms))
 
-            console.log(JSON.stringify(userData.chatrooms))
-            //router.push("/")
+            router.push("/")
         })
     }
 }

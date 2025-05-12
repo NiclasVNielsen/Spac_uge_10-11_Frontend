@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { socket, messages } from '@/methods/sockets'
+import { socket, messages, room, joinRoom, inRooms } from '@/methods/sockets'
 import * as CRUD from '@/methods/httpRequests'
 import { id, getLocalData, username, rooms } from '@/data/token'
 
@@ -12,7 +12,9 @@ items.value = JSON.parse(rooms.value)
 
 const showRoomDetails = ref(true)
 
-const loadRoom = async (roomId = "cma6nlj5y0003v2do0u5o1noy") => {
+const loadRoom = async (roomId = "") => {
+    if(roomId == "")
+        return
     const roomMessages = await CRUD.get("chatroom/getMessages/" + roomId)
 
     
@@ -28,7 +30,9 @@ const loadRoom = async (roomId = "cma6nlj5y0003v2do0u5o1noy") => {
 const usersIdArray = ref([])
 const usersnameArray = ref([])
 
-const getUsers = async (roomId = "cma6nlj5y0003v2do0u5o1noy") => {
+const getUsers = async (roomId = "") => {
+    if(roomId == "")
+        return
     const users = await CRUD.get("chatroom/getusers/" + roomId)
 
     console.log(users)
@@ -53,7 +57,7 @@ const sendMessage = (message) => {
     })
 
     let data  = { 
-        roomId: 'cma6nlj5y0003v2do0u5o1noy',
+        roomId: room.value,
         message
     }
     socket.emit('chatToServer', data)
@@ -62,6 +66,15 @@ const sendMessage = (message) => {
 }
 
 const userInput = ref("")
+
+const changeRoom = (id) => {
+    room.value = id
+    if(inRooms.value.indexOf(room.value) == -1){
+        joinRoom()
+        inRooms.value.push(room.value)
+    }
+    loadRoom(room.value)
+}
 
 </script>
 
@@ -72,7 +85,7 @@ const userInput = ref("")
                 Rooms
             </h4>
             <div class="friendsContainer">
-                <div v-for="item in items" :key="items" class="friendItem shadow b" @click="loadRoom(item.id)">
+                <div v-for="item in items" :key="items" class="friendItem shadow b" @click="changeRoom(item.id)">
                     <figure>
                         <img src="../../ph.jpg" alt="">
                     </figure>
@@ -97,7 +110,7 @@ const userInput = ref("")
             </div>
             <div class="chat">
                 <div class="messageContainer">
-                    <template v-for="(message, index) in messages" :key="messages">
+                    <template v-for="(message, index) in messages" :key="message.id">
                         <template v-if="index != 0 && message.you == 'notu'">
                             <p v-if="messages[index - 1].userId != message.userId">
                                 {{ usersnameArray[usersIdArray.indexOf(message.userId)] }}
@@ -169,6 +182,7 @@ const userInput = ref("")
         width: calc(100% - (var(--differentContextGap) * 16))
         flex-wrap: wrap
         padding: 0 0 var(--sameContextGap) 0
+        max-height: 100vh
         &.noSideBar
             width: calc(100% - (var(--differentContextGap) * 8))
         .controls

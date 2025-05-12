@@ -74,6 +74,10 @@ const changeRoom = (id) => {
         inRooms.value.push(room.value)
     }
     loadRoom(room.value)
+
+    usersIdArray.value = []
+    usersnameArray.value = []
+    getUsers(room.value)
 }
 
 </script>
